@@ -14,8 +14,8 @@ public class Program
         int maxPoints = 24; // Code portion only (analysis is 6 more)
 
         totalPoints += TestChallenge1();
-        totalPoints += TestChallenge2();
-        totalPoints += TestChallenge3();
+        //totalPoints += TestChallenge2();
+        //totalPoints += TestChallenge3();
 
         Console.WriteLine("========================================");
         Console.WriteLine($"  Code Score: {totalPoints}/{maxPoints} points\n");

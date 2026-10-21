@@ -14,10 +14,34 @@ public class SubstitutionBreaker
     /// </summary>
     public Dictionary<char, double> AnalyzeFrequencies(string ciphertext)
     {
+        List<string> splitCipherText = ciphertext.Trim()
+            .Split()
+            .ToList();
+        Dictionary<char, double> frequencyChart = new Dictionary<char, double>();
+        int totalCount = splitCipherText.Count;
+        for (int i = 0; i < splitCipherText.Count; i++)
+        {
+            char letter = splitCipherText[i].First();
+            if (frequencyChart.ContainsKey(letter))
+            {
+                frequencyChart[letter] += 1.0 / totalCount;
+            }
+            else
+            {
+                frequencyChart.Add(letter, 1.0 / totalCount);
+            }
+
+        }
+
+        foreach (KeyValuePair<char, double> entry in frequencyChart)
+        {
+            Console.WriteLine($"{entry.Key}: {entry.Value:P2}");
+        }
+
         // TODO: Count letter frequencies in the ciphertext
         // Return a dictionary mapping each letter to its frequency (0.0 to 1.0)
 
-        throw new NotImplementedException();
+        return frequencyChart;
     }
 
     /// <summary>
@@ -35,7 +59,7 @@ public class SubstitutionBreaker
         // 4. You may need to manually adjust some letters
         //
         // The plaintext should be readable English text.
-
+        AnalyzeFrequencies(ciphertext);
         throw new NotImplementedException();
     }
 

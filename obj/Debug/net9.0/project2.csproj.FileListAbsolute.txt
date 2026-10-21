@@ -1,0 +1,15 @@
+/Users/samm/Downloads/project2-starter/bin/Debug/net9.0/project2
+/Users/samm/Downloads/project2-starter/bin/Debug/net9.0/project2.deps.json
+/Users/samm/Downloads/project2-starter/bin/Debug/net9.0/project2.runtimeconfig.json
+/Users/samm/Downloads/project2-starter/bin/Debug/net9.0/project2.dll
+/Users/samm/Downloads/project2-starter/bin/Debug/net9.0/project2.pdb
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.AssemblyInfoInputs.cache
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.AssemblyInfo.cs
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.csproj.CoreCompileInputs.cache
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.sourcelink.json
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.dll
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/refint/project2.dll
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.pdb
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/project2.genruntimeconfig.cache
+/Users/samm/Downloads/project2-starter/obj/Debug/net9.0/ref/project2.dll
