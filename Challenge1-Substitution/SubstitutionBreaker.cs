@@ -2,6 +2,8 @@
 // CSCI 251 - Project 2: Crypto Attack Lab
 // Challenge 1: Break the Substitution Cipher
 
+using System.Text.RegularExpressions;
+
 namespace CryptoAttackLab;
 
 /// <summary>
@@ -14,14 +16,14 @@ public class SubstitutionBreaker
     /// </summary>
     public Dictionary<char, double> AnalyzeFrequencies(string ciphertext)
     {
-        List<string> splitCipherText = ciphertext.Trim()
-            .Split()
-            .ToList();
+        string cleanCipherText = Regex.Replace(ciphertext, @"[^a-zA-Z]", "");
+        char[] splitCipherText = cleanCipherText.Trim().ToCharArray();
         Dictionary<char, double> frequencyChart = new Dictionary<char, double>();
-        int totalCount = splitCipherText.Count;
-        for (int i = 0; i < splitCipherText.Count; i++)
+        int totalCount = splitCipherText.Length;
+
+        for (int i = 0; i < splitCipherText.Length; i++)
         {
-            char letter = splitCipherText[i].First();
+            char letter = splitCipherText[i];
             if (frequencyChart.ContainsKey(letter))
             {
                 frequencyChart[letter] += 1.0 / totalCount;
@@ -32,16 +34,47 @@ public class SubstitutionBreaker
             }
 
         }
-
-        foreach (KeyValuePair<char, double> entry in frequencyChart)
-        {
-            Console.WriteLine($"{entry.Key}: {entry.Value:P2}");
-        }
+        
+        // foreach(KeyValuePair<char, double> entry in frequencyChart)
+        // {
+        //     Console.WriteLine(entry.Key + " " + entry.Value);
+        // }
 
         // TODO: Count letter frequencies in the ciphertext
         // Return a dictionary mapping each letter to its frequency (0.0 to 1.0)
 
         return frequencyChart;
+    }
+
+    private Dictionary<char,char> MapLetters(string ciphertext)
+    {
+        Dictionary<char,double> cipherFrequencies = AnalyzeFrequencies(ciphertext);
+        Dictionary<double, char> AlphabetFrequency = new Dictionary<double, char>
+        {
+            { 0.127, 'E' },
+            { 0.091, 'T' },
+            { 0.082, 'A' },
+            { 0.075, 'O' },
+            { 0.070, 'I' },
+            { 0.067, 'N' },
+            { 0.063, 'S' },
+            { 0.061, 'H' },
+            { 0.060, 'R' }
+        };
+        Dictionary<char,char> cipherMapping = new Dictionary<char,char>();
+        
+        foreach (KeyValuePair<char,double> frequency in cipherFrequencies)
+        {   
+            double targetFrequency = Math.Round(frequency.Value,3);
+            //Console.WriteLine(targetFrequency+" ");
+            if (AlphabetFrequency.ContainsKey(targetFrequency))
+            {
+                
+                Console.WriteLine(frequency.Key +"="+ AlphabetFrequency[targetFrequency]);
+                cipherMapping.Add(frequency.Key,AlphabetFrequency[targetFrequency]);
+            }
+        }
+        return cipherMapping;
     }
 
     /// <summary>
@@ -59,15 +92,22 @@ public class SubstitutionBreaker
         // 4. You may need to manually adjust some letters
         //
         // The plaintext should be readable English text.
-        AnalyzeFrequencies(ciphertext);
-        throw new NotImplementedException();
+        Dictionary<char,char> mapping = MapLetters(ciphertext);
+        for(int i = 0; i < ciphertext.Length; i++)
+        {
+            if (mapping.ContainsKey(ciphertext.ElementAt(i)))
+            {
+                Console.WriteLine(ciphertext.ElementAt(i));
+            }
+        }
+        return ciphertext;
     }
 
     /// <summary>
     /// Returns the recovered plaintext for auto-grading.
     /// </summary>
     public string GetRecoveredPlaintext()
-    {
+    {   
         string ciphertext = File.ReadAllText("Challenge1-Substitution/cipher.txt");
         return Decrypt(ciphertext);
     }
