@@ -34,11 +34,12 @@ public class SubstitutionBreaker
             }
 
         }
-        
-        // foreach(KeyValuePair<char, double> entry in frequencyChart)
-        // {
-        //     Console.WriteLine(entry.Key + " " + entry.Value);
-        // }
+
+        foreach (KeyValuePair<char, double> entry in frequencyChart)
+        {
+            if(Math.Round(entry.Value, 3) >= 0.06)
+            Console.WriteLine(entry.Key + " " + Math.Round(entry.Value, 3));
+        }
 
         // TODO: Count letter frequencies in the ciphertext
         // Return a dictionary mapping each letter to its frequency (0.0 to 1.0)
@@ -46,32 +47,32 @@ public class SubstitutionBreaker
         return frequencyChart;
     }
 
-    private Dictionary<char,char> MapLetters(string ciphertext)
+    private Dictionary<char, char> MapLetters(string ciphertext)
     {
-        Dictionary<char,double> cipherFrequencies = AnalyzeFrequencies(ciphertext);
+        Dictionary<char, double> cipherFrequencies = AnalyzeFrequencies(ciphertext);
         Dictionary<double, char> AlphabetFrequency = new Dictionary<double, char>
         {
-            { 0.127, 'E' },
+            { 0.126, 'E' },
             { 0.091, 'T' },
             { 0.082, 'A' },
-            { 0.075, 'O' },
-            { 0.070, 'I' },
+            { 0.076, 'O' },
+            { 0.069, 'I' },
             { 0.067, 'N' },
             { 0.063, 'S' },
             { 0.061, 'H' },
             { 0.060, 'R' }
         };
-        Dictionary<char,char> cipherMapping = new Dictionary<char,char>();
-        
-        foreach (KeyValuePair<char,double> frequency in cipherFrequencies)
-        {   
-            double targetFrequency = Math.Round(frequency.Value,3);
+        Dictionary<char, char> cipherMapping = new Dictionary<char, char>();
+
+        foreach (KeyValuePair<char, double> frequency in cipherFrequencies)
+        {
+            double targetFrequency = Math.Round(frequency.Value, 3);
             //Console.WriteLine(targetFrequency+" ");
             if (AlphabetFrequency.ContainsKey(targetFrequency))
             {
                 
-                Console.WriteLine(frequency.Key +"="+ AlphabetFrequency[targetFrequency]);
-                cipherMapping.Add(frequency.Key,AlphabetFrequency[targetFrequency]);
+                Console.WriteLine(frequency.Key + "=" + AlphabetFrequency[targetFrequency]);
+                cipherMapping.Add(frequency.Key, AlphabetFrequency[targetFrequency]);
             }
         }
         return cipherMapping;
@@ -87,19 +88,18 @@ public class SubstitutionBreaker
         // Hints:
         // 1. Analyze letter frequencies in the ciphertext
         // 2. Compare to known English letter frequencies:
-        //    E=12.7%, T=9.1%, A=8.2%, O=7.5%, I=7.0%, N=6.7%, S=6.3%, H=6.1%, R=6.0%
+        //    E=12.6%, T=9.1%, A=8.2%, O=7.6%, I=6.9%, N=6.7%, S=6.3%, H=6.1%, R=6.0%
         // 3. Build a substitution mapping
         // 4. You may need to manually adjust some letters
         //
         // The plaintext should be readable English text.
-        Dictionary<char,char> mapping = MapLetters(ciphertext);
-        for(int i = 0; i < ciphertext.Length; i++)
+        Dictionary<char, char> mapping = MapLetters(ciphertext);
+        //    <Replaced,new char>
+        foreach (KeyValuePair<char, char> map in mapping)
         {
-            if (mapping.ContainsKey(ciphertext.ElementAt(i)))
-            {
-                Console.WriteLine(ciphertext.ElementAt(i));
-            }
+            ciphertext = ciphertext.Replace(map.Key, map.Value);
         }
+        Console.WriteLine(ciphertext);
         return ciphertext;
     }
 
@@ -107,7 +107,7 @@ public class SubstitutionBreaker
     /// Returns the recovered plaintext for auto-grading.
     /// </summary>
     public string GetRecoveredPlaintext()
-    {   
+    {
         string ciphertext = File.ReadAllText("Challenge1-Substitution/cipher.txt");
         return Decrypt(ciphertext);
     }
