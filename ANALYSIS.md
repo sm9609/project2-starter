@@ -8,15 +8,17 @@
 
 ### Attack Method
 <!-- Describe your frequency analysis approach (2-3 sentences) -->
-
+The first thing I looked at was the most common letter in the chipertexts. The most common letter was most likely E.
+From their I noticed E and H are 2 letters appart so i applied that rule to all the letters. 
 
 ### Why This Attack Works
 <!-- Explain why substitution ciphers are vulnerable to frequency analysis (2-3 sentences) -->
-
+Substitution ciphers dont change the frequancy of letters, so common letters can easily be deciphered.
+Once a single letter is deciphered in a substitution cipher it is possiable to find the rule and decrypt the whole ciphertext.
 
 ### How Modern Encryption Prevents This
 <!-- Explain how AES differs fundamentally from substitution ciphers (2-3 sentences) -->
-
+AES enrypts one partition of the Data at a time. Moreover, AES uses complex math operations that distroy any strace of the plaintext ferquencies.
 
 ---
 
