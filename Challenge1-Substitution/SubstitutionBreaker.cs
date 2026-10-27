@@ -34,12 +34,13 @@ public class SubstitutionBreaker
             }
 
         }
-
-        foreach (KeyValuePair<char, double> entry in frequencyChart)
-        {
-            if(Math.Round(entry.Value, 3) >= 0.06)
-            Console.WriteLine(entry.Key + " " + Math.Round(entry.Value, 3));
-        }
+        
+        // Print Frequency Chart
+        // foreach (KeyValuePair<char, double> entry in frequencyChart)
+        // {
+        //     if(Math.Round(entry.Value, 3) >= 0.06)
+        //     Console.WriteLine(entry.Key + " " + Math.Round(entry.Value, 3));
+        // }
 
         // TODO: Count letter frequencies in the ciphertext
         // Return a dictionary mapping each letter to its frequency (0.0 to 1.0)
@@ -47,22 +48,22 @@ public class SubstitutionBreaker
         return frequencyChart;
     }
 
-    private Dictionary<char, char> MapLetters(string ciphertext)
+    private int GetOffset(string ciphertext, Dictionary<char, double> cipherFrequencies)
     {
-        Dictionary<char, double> cipherFrequencies = AnalyzeFrequencies(ciphertext);
+        int offset = -1;
         Dictionary<double, char> AlphabetFrequency = new Dictionary<double, char>
         {
-            { 0.126, 'E' },
+            { 0.127, 'E' },
             { 0.091, 'T' },
             { 0.082, 'A' },
-            { 0.076, 'O' },
-            { 0.069, 'I' },
+            { 0.075, 'O' },
+            { 0.070, 'I' },
             { 0.067, 'N' },
             { 0.063, 'S' },
             { 0.061, 'H' },
             { 0.060, 'R' }
         };
-        Dictionary<char, char> cipherMapping = new Dictionary<char, char>();
+        
 
         foreach (KeyValuePair<char, double> frequency in cipherFrequencies)
         {
@@ -70,12 +71,12 @@ public class SubstitutionBreaker
             //Console.WriteLine(targetFrequency+" ");
             if (AlphabetFrequency.ContainsKey(targetFrequency))
             {
-                
-                Console.WriteLine(frequency.Key + "=" + AlphabetFrequency[targetFrequency]);
-                cipherMapping.Add(frequency.Key, AlphabetFrequency[targetFrequency]);
+                // print Matching frequency
+                //Console.WriteLine(frequency.Key + "=" + AlphabetFrequency[targetFrequency]);
+                offset = Math.Abs(frequency.Key - AlphabetFrequency[targetFrequency]);
             }
         }
-        return cipherMapping;
+        return offset;
     }
 
     /// <summary>
@@ -91,15 +92,23 @@ public class SubstitutionBreaker
         //    E=12.6%, T=9.1%, A=8.2%, O=7.6%, I=6.9%, N=6.7%, S=6.3%, H=6.1%, R=6.0%
         // 3. Build a substitution mapping
         // 4. You may need to manually adjust some letters
+        // 5. offset the numbers by that number
         //
         // The plaintext should be readable English text.
-        Dictionary<char, char> mapping = MapLetters(ciphertext);
-        //    <Replaced,new char>
-        foreach (KeyValuePair<char, char> map in mapping)
+        Dictionary<char, double> cipherFrequencies = AnalyzeFrequencies(ciphertext);
+        int offset = GetOffset(ciphertext,cipherFrequencies);
+        int UpperRange = 90;
+        int LowerRange = 65;
+        System.Console.WriteLine(offset);
+        foreach(char key in cipherFrequencies.Keys)
         {
-            ciphertext = ciphertext.Replace(map.Key, map.Value);
+            if((key + offset) > UpperRange)
+                offset = ((key+offset - UpperRange) + LowerRange);
+                Console.WriteLine(offset);
+            ciphertext = ciphertext.Replace(key,(char)(key + offset));
         }
         Console.WriteLine(ciphertext);
+        
         return ciphertext;
     }
 
