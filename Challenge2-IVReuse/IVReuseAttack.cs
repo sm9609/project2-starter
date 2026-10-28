@@ -2,6 +2,8 @@
 // CSCI 251 - Project 2: Crypto Attack Lab
 // Challenge 2: Exploit IV Reuse in AES-CTR
 
+using System.Text;
+
 namespace CryptoAttackLab;
 
 /// <summary>
@@ -47,8 +49,11 @@ public class IVReuseAttack
         //
         // Note: You can only recover bytes where you know the corresponding
         // plaintext in message 1.
-
-        throw new NotImplementedException();
+        //Console.WriteLine(knownPlaintext1);
+        //System.Console.WriteLine(ciphertext1);
+        byte[] keystream = Xor(ciphertext1,knownPlaintext1);
+        byte[] targetPlaintext = Xor(keystream,targetCiphertext);
+        return targetPlaintext;
     }
 
     /// <summary>
@@ -69,7 +74,6 @@ public class IVReuseAttack
 
         // Your task: Recover message 3
         byte[] recovered = RecoverPlaintext(c1, knownPlaintext, c3);
-
-        return System.Text.Encoding.UTF8.GetString(recovered);
+        return Encoding.UTF8.GetString(recovered);
     }
 }

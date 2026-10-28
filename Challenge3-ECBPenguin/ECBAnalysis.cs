@@ -36,11 +36,9 @@ public class ECBAnalysis
 
         // TODO: Add your analysis output here
         // Example:
-        // Console.WriteLine("Observed patterns: [describe what you see]");
-        // Console.WriteLine("Likely original content: [your guess]");
-        // Console.WriteLine("Why this happens: [brief explanation]");
-
-        throw new NotImplementedException();
+        Console.WriteLine("Observed patterns: The background is all the same color and their is a silhouette of pixel noise in the middle which is also probably all the same color");
+        Console.WriteLine("Likely original content: the linux pinguin on a white background ");
+        Console.WriteLine("Why this happens: Each block of the image is encrypted with the same key meaning that a color will look the same across the whole image and allow you to outline the contents of the image");
     }
 
     /// <summary>
@@ -79,7 +77,10 @@ public class ECBAnalysis
         // 1. What patterns you observed in the encrypted image
         // 2. What you think the original image contained
         // 3. Why ECB mode leaks this information
-
-        throw new NotImplementedException();
+        return """
+                    1. Observed patterns: The background is all the same color and their is a silhouette of pixel noise in the middle which is also probably all the same color
+                    2. Likely original content: the linux pinguin on a white background
+                    3. Why this happens: Each block of the image is encrypted with the same key meaning that a color will look the same across the whole image and allow you to outline the contents of the image
+               """;
     }
 }

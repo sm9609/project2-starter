@@ -8,8 +8,7 @@
 
 ### Attack Method
 <!-- Describe your frequency analysis approach (2-3 sentences) -->
-The first thing I looked at was the most common letter in the chipertexts. The most common letter was most likely E.
-From their I noticed E and H are 2 letters appart so i applied that rule to all the letters. 
+The first thing I looked at was the most common letter in the chipertexts. The most common letter was most likely E. From their I noticed E and H are 2 letters appart so i applied that rule to all the letters. 
 
 ### Why This Attack Works
 <!-- Explain why substitution ciphers are vulnerable to frequency analysis (2-3 sentences) -->
@@ -26,15 +25,17 @@ AES enrypts one partition of the Data at a time. Moreover, AES uses complex math
 
 ### Attack Method
 <!-- Describe the XOR attack step by step -->
-
+The Xor attacks uses known parts of the ciphertext and plaintext to recover the keystream.
+Once the keystream is known, any part of the message can by dycrpted.
 
 ### Why This Attack Works
 <!-- Explain the math: why does XOR cancel the keystream? Show the equations. -->
-
+If C1 = P1 XOR K than K = P1 XOR C1
 
 ### How Modern Encryption Prevents This
 <!-- Explain proper IV/nonce handling in AES-CTR and AES-GCM (2-3 sentences) -->
-
+To prevent from Xor attacks the keystream should be pair with a IV/nonce to 
+make it different everytime its used. You must also ensure that the same keystream isn't used twice; otherwise the key can be founds.
 
 ---
 
@@ -42,14 +43,15 @@ AES enrypts one partition of the Data at a time. Moreover, AES uses complex math
 
 ### What You Observed
 <!-- Describe what patterns you could see in the encrypted image -->
-
+Based on the shape of the image i think its the linux pinguin. The same pattern that appears on the belly of the pinguin appears on the background so the background must also be white.
 
 ### Why ECB Leaks Information
-<!-- Explain why identical blocks are a problem (2-3 sentences) -->
+<!-- Explain why identical blocks are a problem (2-3 sentences) --> ECB blocks that are identical have identical plaintext, meaning its posable to decipher a pattern. In the case of an image you can see the outline of any patterns/similar pixels.
 
 
 ### How Modern Encryption Prevents This
 <!-- Explain how CBC/CTR/GCM modes avoid this issue (2-3 sentences) -->
+ECB is the only one that uses the same key with no IV for the entire encription. CBC, CTR, and GCM each have their own method for making each encryption unique even though they use the same key.
 
 
 ---
@@ -57,4 +59,7 @@ AES enrypts one partition of the Data at a time. Moreover, AES uses complex math
 ## Reflection
 
 <!-- Optional: What did you learn from this project? What surprised you? -->
+Challange 1 gave me insight on how I should be thinking then trying to decrypt something. 
+Challange 2 awnsered any questions about how keystreams works in practice
+Challange 3 visualized what it looks like when ECB leaks information.
 
