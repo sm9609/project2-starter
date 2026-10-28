@@ -69,7 +69,7 @@ public class SubstitutionBreaker
             }
             plaintext+=letter;
         }     
-            //Console.WriteLine(plaintext);
+        Console.WriteLine(plaintext);
         return plaintext;
     }
 

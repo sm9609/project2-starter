@@ -74,6 +74,7 @@ public class IVReuseAttack
 
         // Your task: Recover message 3
         byte[] recovered = RecoverPlaintext(c1, knownPlaintext, c3);
+        System.Console.WriteLine(Encoding.UTF8.GetString(recovered));
         return Encoding.UTF8.GetString(recovered);
     }
 }

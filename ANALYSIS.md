@@ -30,7 +30,9 @@ Once the keystream is known, any part of the message can by dycrpted.
 
 ### Why This Attack Works
 <!-- Explain the math: why does XOR cancel the keystream? Show the equations. -->
-If C1 = P1 XOR K than K = P1 XOR C1
+Anything XOR'ed against itsel is 0 so if the ciphertext is just C1 XOR K than XORing two cipher text would eliminate the Key.
+C1 XOR C2 = P1 XOR P2
+C1 XOR C2 XOR P1 = P2
 
 ### How Modern Encryption Prevents This
 <!-- Explain proper IV/nonce handling in AES-CTR and AES-GCM (2-3 sentences) -->
